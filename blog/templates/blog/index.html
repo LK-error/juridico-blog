@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Flores Advogados</title>
+    <link rel="icon" href="{% static 'images/fav2.png' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Blog - Flores Advogados</h1>
+            <p>Sua central de conhecimento jurídico.</p>
+        </div>
+    </header>
+
+    <nav class="filter-nav">
+    <div class="container">
+        <a href="{% url 'lista_de_artigos' %}" class="nav-link-inicio">Início</a>
+
+        <form action="{% url 'lista_de_artigos' %}" method="GET" class="filter-form">
+            <input type="text" name="titulo" class="search-input" placeholder="Pesquisar por título..." value="{{ titulo_query|default:'' }}">
+
+            <input type="text" name="autor" class="search-input" placeholder="Pesquisar por autor..." value="{{ autor_query|default:'' }}">
+
+            <select name="categoria" class="category-select">
+                <option value="">Todas as Categorias</option>
+                {% for cat in categorias %}
+                    <option value="{{ cat.id }}" {% if cat.id == categoria_query_id %}selected{% endif %}>
+                        {{ cat.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="filter-button">Filtrar</button>
+            <a href="{% url 'lista_de_artigos' %}" class="clear-filter-button">Limpar</a>
+        </form>
+
+        <div class="user-info">
+    {% if user.is_authenticated %}
+        <button id="userMenuButton" class="user-menu-button">
+            Olá, {{ user.first_name|default:user.username }}! <span class="dropdown-arrow">▼</span>
+        </button>
+
+        <div id="userDropdownMenu" class="dropdown-menu">
+            <a href="{% url 'equipe' %}" class="dropdown-item">👤 Equipe</a>
+            <a href="{% url 'criar_conteudo' %}" class="dropdown-item">✨ + Novo Conteúdo</a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'logout' %}" class="dropdown-item">🚪 Sair</a>
+        </div>
+    {% else %}
+        <a href="{% url 'login' %}" class="login-button">Login</a>
+    {% endif %}
+</div>
+    </div>
+</nav>
+
+    <main class="container">
+
+    <section class="articles-list">
+    <h2>{{ titulo_da_pagina }}</h2>
+
+    {% for item in pagina_de_conteudo %}
+        <article class="post-preview">
+
+            {% if item.tipo == 'Artigo' %}
+                <h3><a href="{% url 'detalhe_do_artigo' pk=item.pk %}">{{ item.titulo }}</a></h3>
+                <p class="post-meta">
+                    Publicado por {{ item.autor.first_name }} {{ item.autor.last_name }} em {{ item.data_publicacao|date:"d \d\e F \d\e Y" }}
+                </p>
+                <p>{{ item.conteudo|truncatewords_html:9|safe }}</p>
+                <a href="{% url 'detalhe_do_artigo' pk=item.pk %}" class="read-more">Leia mais &rarr;</a>
+
+            {% elif item.tipo == 'LinkExterno' %}
+                <h3><a href="{{ item.link_url }}" target="_blank">{{ item.titulo }}</a> <span class="external-link-tag">[Link Externo]</span></h3>
+                <p class="post-meta">
+                    Compartilhado por {{ item.autor.first_name }} {{ item.autor.last_name }} em {{ item.data_publicacao|date:"d \d\e F \d\e Y" }}
+                </p>
+                <p>{{ item.resumo|truncatewords_html:15|safe }}</p>
+                <a href="{{ item.link_url }}" target="_blank" class="read-more">Acessar Link &rarr;</a>
+            {% endif %}
+
+        </article>
+
+    {% empty %}
+        <div class="no-results">
+            <p>Nenhum conteúdo encontrado.</p>
+        </div>
+    {% endfor %}
+
+    {% if pagina_de_conteudo.has_other_pages %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if pagina_de_conteudo.has_previous %}
+                <a href="?page=1">&laquo; primeira</a>
+                <a href="?page={{ pagina_de_conteudo.previous_page_number }}">anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ pagina_de_conteudo.number }} de {{ pagina_de_conteudo.paginator.num_pages }}.
+            </span>
+
+            {% if pagina_de_conteudo.has_next %}
+                <a href="?page={{ pagina_de_conteudo.next_page_number }}">próxima</a>
+                <a href="?page={{ pagina_de_conteudo.paginator.num_pages }}">última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% endif %}
+</section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Flores Advogados. Todos os direitos reservados. Uso interno.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdownMenu = document.getElementById('userDropdownMenu');
+
+        // Se o botão não existir na página (usuário não logado), não faz nada
+        if (!userMenuButton) return;
+
+        // Mostra/esconde o menu quando o botão é clicado
+        userMenuButton.addEventListener('click', function(event) {
+            // Impede que o clique feche o menu imediatamente (ver próximo listener)
+            event.stopPropagation(); 
+            userDropdownMenu.style.display = userDropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Esconde o menu se o usuário clicar em qualquer outro lugar da página
+        window.addEventListener('click', function(event) {
+            if (userDropdownMenu.style.display === 'block') {
+                userDropdownMenu.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

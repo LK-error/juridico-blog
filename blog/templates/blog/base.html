@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" href="{% static 'images/fav2.png' %}">
+
+    <title>{% block title %}Blog - Flores Advogados{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    {{ form.media }}
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Blog - Flores Advogados</h1>
+            <p>Sua central de conhecimento jurídico.</p>
+        </div>
+    </header>
+
+    <nav class="filter-nav">
+        {% block nav %}{% endblock %}
+    </nav>
+    
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Flores Advogados. Todos os direitos reservados. Uso interno.</p>
+        </div>
+    </footer>
+
+    {% block scripts %}
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const userMenuButton = document.getElementById('userMenuButton');
+                const userDropdownMenu = document.getElementById('userDropdownMenu');
+                if (userMenuButton) {
+                    userMenuButton.addEventListener('click', function(event) {
+                        event.stopPropagation(); 
+                        userDropdownMenu.style.display = userDropdownMenu.style.display === 'block' ? 'none' : 'block';
+                    });
+                }
+                window.addEventListener('click', function(event) {
+                    if (userDropdownMenu && userDropdownMenu.style.display === 'block') {
+                        userDropdownMenu.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+        {% endblock %}
+
+</body>
+</html>

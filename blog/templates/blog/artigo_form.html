@@ -1,0 +1,102 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo_pagina }} - Blog Flores Advogados{% endblock %}
+
+{% block head_extra %}
+    {{ form.media }}
+{% endblock %}
+
+{% block nav %}
+    <nav class="filter-nav">
+        <div class="container">
+            <div>
+                <a href="{% url 'lista_de_artigos' %}" class="nav-link-inicio">Início</a>
+            </div>
+            <div class="user-info">
+                {% if user.is_authenticated %}
+                    <button id="userMenuButton" class="user-menu-button">
+                        Olá, {{ user.first_name|default:user.username }}! <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div id="userDropdownMenu" class="dropdown-menu">
+                        <a href="{% url 'equipe' %}" class="dropdown-item">👤 Equipe</a>
+                        <a href="{% url 'criar_conteudo' %}" class="dropdown-item">✨ + Novo Conteúdo</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'logout' %}" class="dropdown-item">🚪 Sair</a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-button">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <h1>{{ titulo_pagina }}</h1>
+        <hr>
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            
+            {% if not form.instance.pk %}
+            <div class="form-group-radio">
+                <label class="form-label">{{ form.tipo_conteudo.label }}</label>
+                {{ form.tipo_conteudo }}
+            </div>
+            {% endif %}
+
+            <p><label class="form-label">{{ form.titulo.label }}</label></p>
+            {{ form.titulo }}
+            
+            <p><label class="form-label">{{ form.categoria.label }}</label></p>
+            {{ form.categoria }}
+
+            <div id="campos-artigo">
+                <p><label class="form-label">{{ form.conteudo.label }}</label></p>
+                {{ form.conteudo }}
+            </div>
+            <div id="campos-link-externo">
+                <p><label class="form-label">{{ form.link_url.label }}</label></p>
+                {{ form.link_url }}
+                <p><label class="form-label">{{ form.resumo.label }}</label></p>
+                {{ form.resumo }}
+            </div>
+            
+            <br>
+            <button type="submit" class="form-button">Salvar</button>
+            <a href="{% if form.instance.pk %}{% url 'detalhe_do_artigo' pk=form.instance.pk %}{% else %}{% url 'lista_de_artigos' %}{% endif %}" class="clear-filter-button">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }} <script>
+        // Script para o formulário dinâmico
+        document.addEventListener('DOMContentLoaded', function () {
+            // ... (o script para mostrar/esconder campos continua o mesmo)
+            const tipoConteudoRadios = document.querySelectorAll('input[name="tipo_conteudo"]');
+            const camposArtigo = document.getElementById('campos-artigo');
+            const camposLinkExterno = document.getElementById('campos-link-externo');
+            function toggleCampos() {
+                if (tipoConteudoRadios.length === 0) {
+                    if (camposLinkExterno) camposLinkExterno.style.display = 'none';
+                    if (camposArtigo) camposArtigo.style.display = 'block';
+                    return;
+                }
+                const tipoSelecionado = document.querySelector('input[name="tipo_conteudo"]:checked').value;
+                if (tipoSelecionado === 'artigo') {
+                    camposArtigo.style.display = 'block';
+                    camposLinkExterno.style.display = 'none';
+                } else {
+                    camposArtigo.style.display = 'none';
+                    camposLinkExterno.style.display = 'block';
+                }
+            }
+            tipoConteudoRadios.forEach(radio => {
+                radio.addEventListener('change', toggleCampos);
+            });
+            toggleCampos();
+        });
+    </script>
+{% endblock %}

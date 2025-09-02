@@ -1,0 +1,727 @@
+/* --- Reset Básico e Configurações Gerais --- */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: #0A4F3E; /* Verde do logo para links padrão */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #F2B705; /* Dourado do logo no hover */
+    text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Lora', serif;
+}
+
+/* --- Cabeçalho --- */
+header {
+    background: #0A4F3E; /* Verde do logo */
+    color: #FDFBF5; /* Branco/Creme do logo */
+    padding: 2rem 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+/* --- Barra de Navegação --- */
+nav {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color: #333;
+    font-weight: bold;
+    padding: 0 15px;
+}
+
+nav .login-button {
+    background-color: #F2B705; /* Dourado do logo */
+    color: #0A4F3E; /* Verde do logo para o texto do botão */
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+nav .login-button:hover {
+    background-color: #d9a604; /* Dourado um pouco mais escuro no hover */
+    text-decoration: none;
+    color: #0A4F3E;
+}
+
+/* --- Conteúdo Principal (Página Inicial) --- */
+main {
+    padding: 2rem 0;
+}
+
+.articles-list h2 {
+    border-bottom: 2px solid #F2B705; /* Dourado do logo como destaque */
+    padding-bottom: 10px;
+    margin-bottom: 2rem;
+}
+
+.post-preview {
+    background: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+    border-left: 5px solid #0A4F3E; /* Borda lateral com o Verde do logo */
+    border-radius: 5px;
+}
+
+.post-preview h3 {
+    margin-top: 0;
+}
+
+.post-preview h3 a {
+    color: #333;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    display: inline-block;
+    font-weight: bold;
+}
+
+/* --- Rodapé --- */
+footer {
+    background: #0A4F3E; /* Verde do logo */
+    color: #FDFBF5; /* Branco/Creme do logo */
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+
+/*
+=====================================================
+--- ESTILOS DA PÁGINA DE LOGIN ---
+=====================================================
+*/
+
+.login-page {
+    background-color: #0A4F3E; /* Fundo verde em toda a página */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que padding não afete a largura total */
+}
+
+.form-options {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.login-button-full {
+    width: 100%;
+    padding: 12px;
+    background-color: #F2B705; /* Dourado do logo */
+    color: #0A4F3E; /* Verde do logo */
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button-full:hover {
+    background-color: #d9a604; /* Dourado mais escuro no hover */
+}
+
+
+/*
+=====================================================
+--- ESTILOS DA PÁGINA DE ARTIGO COMPLETO ---
+=====================================================
+*/
+
+.back-to-home-button {
+    position: fixed;
+    top: 100px; /* Ajuste a distância do topo */
+    left: 20px;
+    background-color: #0A4F3E;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.back-to-home-button:hover {
+    background-color: #F2B705;
+    color: #0A4F3E;
+}
+
+.full-article {
+    background-color: #fff;
+    padding: 2rem 3rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.article-header h1 {
+    font-size: 2.8rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.article-meta {
+    font-size: 0.9rem;
+    color: #F2B705;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    margin-bottom: 2rem;
+}
+
+.article-meta span {
+    margin-right: 15px;
+}
+
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.article-content h3 {
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #0A4F3E;
+}
+
+.article-content p, 
+.article-content ol, 
+.article-content ul {
+    margin-bottom: 1.5rem;
+}
+
+.article-content strong {
+    color: #333;
+}
+
+.article-content em {
+    color: #555;
+}
+
+.article-content ol, .article-content ul {
+    padding-left: 25px;
+}
+
+.article-footer {
+    margin-top: 3rem;
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+}
+
+.back-to-list-link {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+/*
+==============================================
+--- ESTILOS DA NOVA BARRA DE FILTROS ---
+==============================================
+*/
+
+.filter-nav {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.filter-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os elementos */
+}
+
+.nav-link-inicio {
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap; /* Impede que o "Início" quebre a linha */
+}
+
+.filter-form {
+    display: flex;
+    flex-grow: 1; /* Faz o formulário ocupar o espaço disponível */
+    gap: 10px; /* Espaçamento entre os campos do formulário */
+}
+
+.search-input,
+.category-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+}
+
+.search-input {
+    width: 100%; /* Faz os inputs de texto crescerem */
+}
+
+.category-select {
+    min-width: 180px; /* Largura mínima para a caixa de categorias */
+}
+
+.filter-button,
+.clear-filter-button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-button {
+    background-color: #0A4F3E; /* Verde do logo */
+    color: #fff;
+}
+
+.filter-button:hover {
+    background-color: #084234;
+}
+
+.clear-filter-button {
+    background-color: #ddd;
+    color: #333;
+}
+
+.clear-filter-button:hover {
+    background-color: #ccc;
+    text-decoration: none;
+}
+
+/* Estilo para a mensagem de 'nenhum resultado' */
+.no-results {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-left: 5px solid #F2B705; /* Borda dourada para destaque */
+    padding: 2rem 3rem;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 2rem;
+}
+
+.no-results p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+/* Estilos para a Paginação */
+.pagination {
+    margin: 40px 0;
+    text-align: center;
+}
+.pagination .step-links a,
+.pagination .step-links .current {
+    padding: 8px 12px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #0A4F3E;
+    text-decoration: none;
+}
+.pagination .step-links a:hover {
+    background-color: #f4f4f4;
+    text-decoration: none;
+}
+.pagination .step-links .current {
+    background-color: #0A4F3E;
+    color: #fff;
+    border-color: #0A4F3E;
+}
+
+/*
+==============================================
+--- ESTILOS PARA FORMULÁRIOS DO FRONT-END ---
+==============================================
+*/
+.form-container {
+    background-color: #fff;
+    padding: 2rem 3rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 2rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Garante que padding não afete a largura total */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+.form-textarea {
+    min-height: 300px;
+    resize: vertical;
+}
+
+.form-label {
+    font-weight: bold;
+    display: block;
+}
+
+.form-button {
+    padding: 12px 25px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #0A4F3E; /* Verde do logo */
+    color: #fff;
+    text-decoration: none;
+}
+
+.form-button:hover {
+    background-color: #084234;
+}
+
+/* Estilos para a barra de ações e botões */
+.actions-bar {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.button-primary,
+.button-secondary {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button-primary {
+    background-color: #0A4F3E;
+    color: #fff;
+}
+.button-primary:hover {
+    background-color: #084234;
+    color: #fff;
+}
+
+.button-secondary {
+    background-color: #F2B705;
+    color: #0A4F3E;
+}
+.button-secondary:hover {
+    background-color: #d9a604;
+    color: #0A4F3E;
+}
+
+.button-primary-nav:hover {
+    background-color: #084234;
+    color: #fff;
+    text-decoration: none;
+}
+
+.external-link-tag {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #F2B705; /* Dourado do logo */
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.form-group-radio {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+.form-group-radio label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+.form-group-radio input[type="radio"] {
+    margin-right: 5px;
+}
+.form-group-radio label:not(:first-of-type) {
+    margin-left: 20px; /* Espaço entre os botões */
+}
+
+/* --- PÁGINA DA EQUIPE --- */
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #F2B705; 
+}
+.team-search-form input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 250px;
+}
+.team-search-form button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: #0A4F3E;
+    color: #fff;
+    cursor: pointer;
+}
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+.advogado-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+
+    /* --- NOVAS PROPRIEDADES DE FUNDO --- */
+    height: 300px; /* Definimos uma altura fixa para o card */
+    background-color: #f0f0f0; /* Cor de fundo caso a imagem não carregue */
+    background-size: cover; /* Tamanho: largura automática, altura 120px */
+    background-repeat: no-repeat; /* Para a imagem não se repetir */
+    
+}
+.advogado-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+
+}
+
+.info-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, #084234, rgba(0, 51, 102, 0));
+    color: #fff;
+    padding: 40px 15px 15px 15px;
+}
+.info-overlay h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+.info-overlay p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+}
+
+/* --- ESTILOS DA JANELA MODAL --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+}
+.modal-content img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: scale-down;
+    margin-bottom: 15px;
+}
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user-info {
+    position: relative; /* Essencial para o posicionamento do menu */
+}
+
+.user-menu-button {
+    background-color: #F2B705; /* Dourado */
+    color: #0A4F3E;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+}
+
+.dropdown-arrow {
+    margin-left: 8px;
+    font-size: 0.7rem;
+}
+
+.dropdown-menu {
+    display: none; /* O menu começa escondido */
+    position: absolute;
+    top: 110%; /* Posiciona abaixo do botão */
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1002;
+    border-radius: 5px;
+    overflow: hidden; /* Garante que os cantos dos itens fiquem arredondados */
+}
+
+.dropdown-item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+    text-decoration: none;
+}
+
+.dropdown-divider {
+    height: 1px;
+    margin: 4px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}

@@ -1,0 +1,81 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{{ artigo.titulo }} - Blog Flores Advogados{% endblock %}
+
+{% block head_extra %}
+    {% endblock %}
+
+{% block nav %}
+    <nav class="filter-nav">
+        <div class="container">
+            <div>
+                <a href="{% url 'lista_de_artigos' %}" class="nav-link-inicio">Início</a>
+            </div>
+            <div class="user-info">
+                {% if user.is_authenticated %}
+                    <button id="userMenuButton" class="user-menu-button">
+                        Olá, {{ user.first_name|default:user.username }}! <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div id="userDropdownMenu" class="dropdown-menu">
+                        <a href="{% url 'equipe' %}" class="dropdown-item">👤 Equipe</a>
+                        <a href="{% url 'criar_conteudo' %}" class="dropdown-item">✨ + Novo Conteúdo</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'logout' %}" class="dropdown-item">🚪 Sair</a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-button">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <article class="full-article">
+        <header class="article-header">
+            <h1>{{ artigo.titulo }}</h1>
+
+            {% if user == artigo.autor %}
+                <div class="actions-bar">
+                    <a href="{% url 'editar_artigo' pk=artigo.pk %}" class="button-secondary">Editar Artigo</a>
+                </div>
+            {% endif %}
+
+            <div class="article-meta">
+                <span class="meta-category">Área: {{ artigo.categoria.nome }}</span>
+                <span class="meta-date">Publicado em {{ artigo.data_publicacao|date:"d \d\e F \d\e Y" }}</span>
+                <span class="meta-author">Por: {{ artigo.autor.first_name }} {{ artigo.autor.last_name }}</span>
+            </div>
+        </header>
+
+        <div class="article-content">
+            {{ artigo.conteudo|safe }}
+        </div>
+
+        <footer class="article-footer">
+            <a href="{% url 'lista_de_artigos' %}" class="back-to-list-link">&larr; Voltar para a lista de artigos</a>
+        </footer>
+    </article>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Script do menu dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const userMenuButton = document.getElementById('userMenuButton');
+            const userDropdownMenu = document.getElementById('userDropdownMenu');
+            if (userMenuButton) {
+                userMenuButton.addEventListener('click', function(event) {
+                    event.stopPropagation(); 
+                    userDropdownMenu.style.display = userDropdownMenu.style.display === 'block' ? 'none' : 'block';
+                });
+            }
+            window.addEventListener('click', function(event) {
+                if (userDropdownMenu && userDropdownMenu.style.display === 'block') {
+                    userDropdownMenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
+{% endblock %}
